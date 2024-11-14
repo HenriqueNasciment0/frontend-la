@@ -1,0 +1,10 @@
+{
+  "Login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Log In",
+    "cancel": "Cancel",
+    "admin_area": "Admin Area"
+  }
+}

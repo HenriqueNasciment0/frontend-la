@@ -1,0 +1,10 @@
+{
+  "Login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Senha",
+    "login": "Entrar",
+    "cancel": "Cancelar",
+    "admin_area": "Área administrativa"
+  }
+}
