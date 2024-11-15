@@ -1,49 +1,139 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 
 import { useTranslations } from "next-intl";
-// import { Link } from "@/i18n/routing";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+
+const formSchema = z.object({
+  email: z.string().email({ message: "O formato do email está incorreto" }),
+  password: z
+    .string()
+    .min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
+});
 
 export default function LoginCard() {
   const t = useTranslations("Login");
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
   return (
     <div className="flex items-center justify-center">
-      <Card className="w-[370px]">
+      <Card className="w-[400px] p-6">
         <CardHeader>
-          <CardTitle className="text-center">{t("title")}</CardTitle>
-          {/* <Link href="/about">{t('about')}</Link> */}
-          <CardDescription className="text-center">
+          <CardTitle className="text-center text-2xl font-bold">
+            {t("title")}
+          </CardTitle>
+          <CardDescription className="text-center text-sm text-gray-600">
             {t("admin_area")}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">{t("email")}</Label>
-                <Input id="email" placeholder={t("email")} />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">{t("password")}</Label>
-                <Input id="password" placeholder={t("password")} />
-              </div>
-            </div>
-          </form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field, fieldState }) => (
+                  <FormItem>
+                    <FormLabel>{t("email")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder={t("email")}
+                        {...field}
+                        className={`${
+                          fieldState.error ? "border-red-500" : ""
+                        }`}
+                      />
+                    </FormControl>
+                    {fieldState.error && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {fieldState.error.message}
+                      </p>
+                    )}
+                  </FormItem>
+                )}
+              />
+
+              {/* Campo de Senha */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field, fieldState }) => (
+                  <FormItem>
+                    <FormLabel>{t("password")}</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder={t("password")}
+                          {...field}
+                          className={`pr-10 ${
+                            fieldState.error ? "border-red-500" : ""
+                          }`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="w-5 h-5" />
+                          ) : (
+                            <Eye className="w-5 h-5" />
+                          )}
+                        </button>
+                      </div>
+                    </FormControl>
+                    {fieldState.error && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {fieldState.error.message}
+                      </p>
+                    )}
+                  </FormItem>
+                )}
+              />
+
+              {/* Botão de Login */}
+              <Button type="submit" className="w-full">
+                {t("login")}
+              </Button>
+            </form>
+          </Form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline">{t("cancel")}</Button>
-          <Button>{t("login")}</Button>
-        </CardFooter>
       </Card>
     </div>
   );

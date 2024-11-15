@@ -5,7 +5,9 @@
     "password": "Senha",
     "login": "Entrar",
     "cancel": "Cancelar",
-    "admin_area": "Área administrativa"
+    "admin_area": "Área administrativa",
+    "valid-email": "O formato do email está incorreto",
+    "valid-password": "A senha deve ter pelo menos 6 caracteres"
   },
   "SwitcherLang": {
     "portuguese": "Português",

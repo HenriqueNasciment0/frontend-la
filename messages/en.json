@@ -5,7 +5,9 @@
     "password": "Password",
     "login": "Log In",
     "cancel": "Cancel",
-    "admin_area": "Admin Area"
+    "admin_area": "Admin Area",
+    "valid-email": "The email format is incorrect",
+    "valid-password": "Password must be at least 6 characters long"
   },
   "SwitcherLang": {
     "portuguese": "Portuguese",
