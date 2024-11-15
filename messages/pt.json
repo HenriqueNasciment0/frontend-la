@@ -6,5 +6,13 @@
     "login": "Entrar",
     "cancel": "Cancelar",
     "admin_area": "Área administrativa"
+  },
+  "SwitcherLang": {
+    "portuguese": "Português",
+    "english": "Inglês",
+    "spanish": "Espanhol"
+  },
+  "Header": {
+    "admin": "Administração"
   }
 }

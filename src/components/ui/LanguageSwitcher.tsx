@@ -2,22 +2,25 @@
 "use client";
 
 import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import { Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
-import { Link } from "@/i18n/routing";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useTranslations } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/routing";
 
 export function LanguageSwitcher() {
-  const currentPath = usePathname();
+  const t = useTranslations("SwitcherLang");
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const generatePathWithLanguage = (locale: string) => {
-    return `${currentPath.replace(/^\/(pt|en|es)/, `/${locale}`)}`;
+  const handleLocalSwitch = (lang: string) => {
+    router.replace({ pathname }, { locale: lang });
   };
 
   return (
@@ -27,16 +30,18 @@ export function LanguageSwitcher() {
           <Languages className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem asChild>
-          <Link href={generatePathWithLanguage("pt")}>Português</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={generatePathWithLanguage("en")}>English</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={generatePathWithLanguage("es")}>Español</Link>
-        </DropdownMenuItem>
+      <DropdownMenuContent align="end" sideOffset={5}>
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => handleLocalSwitch("pt")}>
+            {t("portuguese")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleLocalSwitch("en")}>
+            {t("english")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleLocalSwitch("es")}>
+            {t("spanish")}
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

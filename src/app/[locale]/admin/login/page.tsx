@@ -13,11 +13,11 @@ import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
 // import { Link } from "@/i18n/routing";
 
-export default function Home() {
+export default function LoginCard() {
   const t = useTranslations("Login");
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <Card className="w-[370px]">
         <CardHeader>
           <CardTitle className="text-center">{t("title")}</CardTitle>
