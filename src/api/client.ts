@@ -1,17 +1,32 @@
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
 });
 
-apiClient.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    if (
+      error.response?.status === 401 &&
+      error.response?.data?.message === "Token expired"
+    ) {
+      try {
+        await api.post("/auth/refresh-token");
+        return api.request(error.config);
+      } catch (refreshError) {
+        console.error("Refresh token falhou:", refreshError);
+
+        if (typeof window !== "undefined") {
+          const router = useRouter();
+          router.push("/pt/admin/login");
+        }
+      }
+    }
     return Promise.reject(error);
   }
 );
 
-export default apiClient;
+export default api;

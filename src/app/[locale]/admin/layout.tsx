@@ -10,9 +10,9 @@ export default async function LocaleLayout({
     <html suppressHydrationWarning>
       <body>
         <div className="flex flex-col min-h-screen justify-between">
-          <AdminHeader />
+          {/* <AdminHeader /> */}
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </body>
     </html>

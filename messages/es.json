@@ -16,5 +16,13 @@
   },
   "Header": {
     "admin": "Administración"
+  },
+  "NewWork": {
+    "title": "New Work",
+    "description": "Descripción",
+    "price": "Precio",
+    "category": "Categoría",
+    "image": "Imagen",
+    "submit": "Entregar"
   }
 }

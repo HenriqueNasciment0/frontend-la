@@ -16,5 +16,13 @@
   },
   "Header": {
     "admin": "Administration"
+  },
+  "NewWork": {
+    "title": "New Work",
+    "description": "Description",
+    "price": "Price",
+    "category": "Category",
+    "image": "Image",
+    "submit": "Submit"
   }
 }

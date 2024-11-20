@@ -24,6 +24,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Login } from "@/api/endpoints/auth";
 
 const formSchema = z.object({
   email: z.string().email({ message: "O formato do email está incorreto" }),
@@ -34,6 +36,21 @@ const formSchema = z.object({
 
 export default function LoginCard() {
   const t = useTranslations("Login");
+  const router = useRouter();
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await Login(email, password);
+      console.log(response);
+
+      if (response.status === 200) {
+        router.push("/pt/admin/dashboard");
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,7 +63,9 @@ export default function LoginCard() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    login(values.email, values.password);
+
+    form.reset();
   }
 
   return (
@@ -88,7 +107,6 @@ export default function LoginCard() {
                 )}
               />
 
-              {/* Campo de Senha */}
               <FormField
                 control={form.control}
                 name="password"
@@ -127,7 +145,6 @@ export default function LoginCard() {
                 )}
               />
 
-              {/* Botão de Login */}
               <Button type="submit" className="w-full">
                 {t("login")}
               </Button>
