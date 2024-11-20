@@ -66,8 +66,6 @@ export default function FormNew() {
     // router.push("/pt/admin/dashboard/works/all");
   };
 
-  console.log(form.formState.errors);
-
   const items = [
     {
       id: 1,

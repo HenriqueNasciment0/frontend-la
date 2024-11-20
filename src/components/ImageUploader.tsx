@@ -1,6 +1,14 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  DndContext,
+  closestCenter,
+  DragOverlay,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+} from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
@@ -16,6 +24,7 @@ import { Badge } from "./ui/badge";
 
 type FileWithPreview = File & {
   preview: string;
+  id: string;
 };
 
 const SortableImage = ({
@@ -25,10 +34,10 @@ const SortableImage = ({
 }: {
   file: FileWithPreview;
   index: number;
-  onRemove: (index: number) => void;
+  onRemove: (file: FileWithPreview) => void;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: index });
+    useSortable({ id: file.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -39,27 +48,27 @@ const SortableImage = ({
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
       className="relative group col-span-1 overflow-hidden"
     >
-      <Image
-        src={file.preview}
-        alt={file.name}
-        width={300}
-        height={300}
-        loading="lazy"
-        className="w-full h-48 sm:h-auto object-cover rounded-lg"
-      />
-      <div className="absolute top-2 right-2">
+      <div {...attributes} {...listeners} className="cursor-move">
+        <Image
+          src={file.preview}
+          alt={file.name}
+          width={300}
+          height={300}
+          loading="lazy"
+          className="w-full h-48 sm:h-auto object-cover rounded-lg"
+        />
+      </div>
+      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <Button
           size="icon"
           type="button"
           variant="destructive"
-          className="bg-gray-500/70 hover:bg-gray-500 w-5 h-5 rounded-full"
-          onClick={() => onRemove(index)}
+          className="bg-red-500/40 hover:bg-red-500 w-4 h-4 rounded-full"
+          onClick={() => onRemove(file)}
         >
-          <X className="w-4 h-4" />
+          <X className="w-3 h-3" />
         </Button>
       </div>
       {index === 0 && (
@@ -75,38 +84,65 @@ const ImageUploader: React.FC<{ onChange: (files: File[]) => void }> = ({
   onChange,
 }) => {
   const [images, setImages] = useState<FileWithPreview[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const newImages: FileWithPreview[] = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
+          id: `${file.name}-${Date.now()}`,
         })
       );
 
       const updatedImages = [...images, ...newImages];
       setImages(updatedImages);
-      onChange(updatedImages); // Chamar a função de callback com as novas imagens
+      onChange(updatedImages);
     },
     [images, onChange]
   );
 
-  const removeImage = (index: number) => {
-    // const newImages = images.filter((_, i) => i !== index);
-    // setImages(newImages);
-    // onChange(newImages); // Atualizar o estado no formulário
+  const removeImage = (fileToRemove: FileWithPreview) => {
+    const newImages = images.filter((file) => file.id !== fileToRemove.id);
+    setImages(newImages);
+    onChange(newImages);
 
-    console.log("Removendo imagem:", index);
+    // Revoke the object URL to free up memory
+    URL.revokeObjectURL(fileToRemove.preview);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDragStart = (event: any) => {
+    setActiveId(event.active.id);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
+    setActiveId(null);
 
     if (active.id !== over?.id) {
-      setImages((prevImages) => arrayMove(prevImages, active.id, over.id));
+      setImages((prevImages) => {
+        const oldIndex = prevImages.findIndex((img) => img.id === active.id);
+        const newIndex = prevImages.findIndex((img) => img.id === over.id);
+        return arrayMove(prevImages, oldIndex, newIndex);
+      });
     }
   };
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    })
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -140,17 +176,19 @@ const ImageUploader: React.FC<{ onChange: (files: File[]) => void }> = ({
 
         {images.length > 0 && (
           <DndContext
+            sensors={sensors}
             collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={images.map((_, index) => index)}
+              items={images.map((img) => img.id)}
               strategy={verticalListSortingStrategy}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                 {images.map((file, index) => (
                   <SortableImage
-                    key={file.name}
+                    key={file.id}
                     file={file}
                     index={index}
                     onRemove={removeImage}
@@ -158,6 +196,15 @@ const ImageUploader: React.FC<{ onChange: (files: File[]) => void }> = ({
                 ))}
               </div>
             </SortableContext>
+            <DragOverlay>
+              {activeId ? (
+                <SortableImage
+                  file={images.find((img) => img.id === activeId)!}
+                  index={images.findIndex((img) => img.id === activeId)}
+                  onRemove={removeImage}
+                />
+              ) : null}
+            </DragOverlay>
           </DndContext>
         )}
       </CardContent>
