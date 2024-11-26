@@ -19,11 +19,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { useTranslations } from "next-intl";
 // import { useRouter } from "next/navigation";
 import ImageUploader from "@/components/ImageUploader";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -41,6 +43,7 @@ const formSchema = z.object({
   category: z.array(z.number()).min(1, {
     message: "At least one category must be selected.",
   }),
+  payment: z.string().min(1, { message: "Payment must be selected." }),
 });
 
 export default function FormNew() {
@@ -55,6 +58,7 @@ export default function FormNew() {
       // link: "",
       images: [],
       category: [],
+      payment: "",
     },
   });
 
@@ -86,6 +90,34 @@ export default function FormNew() {
     {
       id: 5,
       label: "Ensaio Família",
+    },
+  ] as const;
+
+  const itemsPayment = [
+    {
+      id: 1,
+      label: "Parcelado",
+      value: 1,
+    },
+    {
+      id: 2,
+      label: "Cartão de Crédito",
+      value: 2,
+    },
+    {
+      id: 3,
+      label: "A vista",
+      value: 3,
+    },
+    {
+      id: 4,
+      label: "Troca de serviços",
+      value: 4,
+    },
+    {
+      id: 5,
+      label: "Presente",
+      value: 5,
     },
   ] as const;
 
@@ -157,6 +189,40 @@ export default function FormNew() {
                   }}
                 />
               ))}
+            </div>
+
+            <div className="flex flex-col space-y-4">
+              <FormField
+                control={form.control}
+                name="payment"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>{t("payment")}</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-col space-y-1"
+                      >
+                        {itemsPayment.map((item) => (
+                          <FormItem
+                            key={item.id}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={item.value.toString()} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {item.label}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <div className="flex justify-center items-center ">

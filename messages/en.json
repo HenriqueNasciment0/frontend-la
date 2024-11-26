@@ -7,7 +7,10 @@
     "cancel": "Cancel",
     "admin_area": "Admin Area",
     "valid-email": "The email format is incorrect",
-    "valid-password": "Password must be at least 6 characters long"
+    "valid-password": "Password must be at least 6 characters long",
+    "invalid-credentials": "Invalid email or password",
+    "error": "An error has occurred",
+    "loading": "Loading..."
   },
   "SwitcherLang": {
     "portuguese": "Portuguese",
@@ -22,6 +25,7 @@
     "description": "Description",
     "price": "Price",
     "category": "Category",
+    "payment": "Payment",
     "image": "Image",
     "submit": "Submit"
   }

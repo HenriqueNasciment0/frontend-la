@@ -15,8 +15,16 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useEffect } from "react";
 
 export default function Page() {
+  useEffect(() => {
+    const logCookies = () => {
+      console.log("Cookies:", document.cookie);
+    };
+
+    logCookies();
+  }, []);
   return (
     <SidebarProvider>
       <AppSidebar />
