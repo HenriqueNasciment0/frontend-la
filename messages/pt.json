@@ -5,7 +5,12 @@
     "password": "Senha",
     "login": "Entrar",
     "cancel": "Cancelar",
-    "admin_area": "Área administrativa"
+    "admin_area": "Área administrativa",
+    "valid-email": "O formato do email está incorreto",
+    "valid-password": "A senha deve ter pelo menos 6 caracteres",
+    "invalid-credentials": "Email ou senha incorretos",
+    "error": "Ocorreu um erro",
+    "loading": "Carregando..."
   },
   "SwitcherLang": {
     "portuguese": "Português",
@@ -14,5 +19,14 @@
   },
   "Header": {
     "admin": "Administração"
+  },
+  "NewWork": {
+    "title": "New Work",
+    "description": "Descrição",
+    "price": "Preço",
+    "category": "Categoria",
+    "payment": "Pagamento",
+    "image": "Imagem",
+    "submit": "Enviar"
   }
 }

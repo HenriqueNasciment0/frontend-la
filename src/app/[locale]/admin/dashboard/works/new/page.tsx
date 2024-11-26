@@ -1,6 +1,7 @@
 "use client";
 
 import { AppSidebar } from "@/components/app-sidebar";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,16 +16,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { useEffect } from "react";
+import FormNew from "./formNew";
 
 export default function Page() {
-  useEffect(() => {
-    const logCookies = () => {
-      console.log("Cookies:", document.cookie);
-    };
-
-    logCookies();
-  }, []);
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -36,7 +30,7 @@ export default function Page() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="dashboard">DashBoard</BreadcrumbLink>
+                  <BreadcrumbLink href="#">DashBoard</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
@@ -46,13 +40,8 @@ export default function Page() {
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        <div className="flex justify-center items-center">
+          <FormNew />
         </div>
       </SidebarInset>
     </SidebarProvider>
