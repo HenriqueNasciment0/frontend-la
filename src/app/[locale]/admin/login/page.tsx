@@ -27,7 +27,7 @@ import { AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Login } from "@/api/endpoints/auth";
 import { AdminHeader } from "@/components/ui/AdminHeader";
-import { Footer } from "@/components/ui/Footer";
+// import { Footer } from "@/components/ui/Footer";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const formSchema = z.object({
@@ -78,9 +78,9 @@ export default function LoginCard() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen justify-between">
+    <div className="flex flex-col min-h-screen">
       <AdminHeader />
-      <div className="flex items-center flex-col gap-4 justify-center">
+      <div className="flex items-center flex-col gap-4 justify-center flex-1">
         {error && (
           <Alert variant="destructive" className="w-[400px]">
             <AlertCircle className="h-4 w-4" />
@@ -90,7 +90,7 @@ export default function LoginCard() {
         )}
         <Card className="w-[400px] p-6">
           <CardHeader>
-            <CardTitle className="text-center text-2xl font-bold">
+            <CardTitle className="text-center text-3xl font-bold">
               {t("title")}
             </CardTitle>
             <CardDescription className="text-center text-sm text-gray-600">
@@ -101,7 +101,7 @@ export default function LoginCard() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
+                className="space-y-10"
               >
                 <FormField
                   control={form.control}
@@ -174,7 +174,7 @@ export default function LoginCard() {
           </CardContent>
         </Card>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
