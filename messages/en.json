@@ -28,5 +28,21 @@
     "payment": "Payment",
     "image": "Image",
     "submit": "Submit"
+  },
+  "NewCategory": {
+    "title": "New Category",
+    "name": "Name",
+    "nameLabel": "Ex: Studio Shoot",
+    "price": "Price",
+    "priceLabel": "RS 0.00",
+    "description": "Description",
+    "descriptionLabel": "Ex: Outdoor shoot with image editing",
+    "workingMinutes": "Duration",
+    "workingMinutesLabel": "1 hour",
+    "hour": "hour",
+    "hours": "hours",
+    "and": "and",
+    "minutes": "minutes",
+    "submit": "Create"
   }
 }

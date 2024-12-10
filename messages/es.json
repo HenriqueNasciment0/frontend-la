@@ -28,5 +28,21 @@
     "payment": "Pago",
     "image": "Imagen",
     "submit": "Entregar"
+  },
+  "NewCategory": {
+    "title": "Nueva categoría",
+    "name": "Nombre",
+    "nameLabel": "Ej.: Sesión de estudio",
+    "price": "Precio",
+    "priceLabel": "RS 0.00",
+    "description": "Descripción",
+    "descriptionLabel": "Ej.: Sesión de exteriores con edición de imágenes",
+    "workingMinutes": "Duración",
+    "workingMinutesLabel": "1 hora",
+    "hour": "hora",
+    "hours": "horas",
+    "and": "y",
+    "minutes": "minutos",
+    "submit": "Crear"
   }
 }

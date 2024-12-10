@@ -77,8 +77,8 @@ const data = {
       icon: Bot,
       items: [
         {
-          title: "Todos",
-          url: "#",
+          title: "Novo",
+          url: "dashboard/categories/new",
         },
         {
           title: "Editar",

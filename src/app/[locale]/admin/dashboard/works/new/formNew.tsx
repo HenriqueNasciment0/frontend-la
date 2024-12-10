@@ -26,6 +26,7 @@ import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/ImageUploader";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { CreateJob } from "@/api/endpoints/job";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -62,8 +63,27 @@ export default function FormNew() {
     },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
+    const formData = new FormData();
+
+    // formData.append("title", data.title);
+    // formData.append("description", data.description);
+    // formData.append("link", data.link);
+    // data.images.forEach((image, index) => {
+    //   formData.append(`images[${index}]`, image);
+    // });
+    formData.append("categoryIds", JSON.stringify(data.category));
+    formData.append("payment", data.payment);
+    formData.append("customerId", "3");
+
+    console.log("FormData", formData);
+
+    try {
+      const response = await CreateJob(formData);
+      console.log("response", response);
+    } catch (error) {
+      console.error("Error creating job:", error);
+    }
 
     // Aqui você pode implementar a lógica para enviar os dados do formulário e as imagens para o servidor.
 
