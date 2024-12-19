@@ -25,6 +25,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { LanguageSwitcher } from "./ui/LanguageSwitcher";
 
 export function NavUser({
   user,
@@ -96,6 +97,8 @@ export function NavUser({
                 <Bell />
                 Notifications
               </DropdownMenuItem>
+
+              <LanguageSwitcher />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>

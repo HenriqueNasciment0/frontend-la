@@ -47,10 +47,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     validateToken();
   }, [router]);
 
-  if (isAuthenticated === null) {
-    return <div>Redirect...</div>;
-  }
-
   return (
     <>
       <SidebarProvider>
@@ -73,9 +69,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </Breadcrumb>
             </div>
           </header>
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-            {isAuthenticated && children}
-          </div>
+
+          {isAuthenticated !== null ? (
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+              {isAuthenticated && children}
+            </div>
+          ) : (
+            <div className="flex flex-1 items-center justify-center">
+              recharging...
+            </div>
+          )}
         </SidebarInset>
       </SidebarProvider>
     </>

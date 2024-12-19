@@ -72,17 +72,17 @@ const data = {
       ],
     },
     {
-      title: "Tipos de Serviço",
+      title: "Serviços",
       url: "#",
       icon: Bot,
       items: [
         {
           title: "Novo",
-          url: "dashboard/categories/new",
+          url: "dashboard/services/new",
         },
         {
-          title: "Editar",
-          url: "#",
+          title: "Visualizar",
+          url: "dashboard/services/view",
         },
         {
           title: "Excluir",

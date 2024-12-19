@@ -150,7 +150,11 @@ export default function NewCategory() {
               )}
             />
 
-            <Button type="submit" className="w-1/3">
+            <Button
+              type="submit"
+              className="w-1/3"
+              disabled={!form.formState.isValid}
+            >
               {t("submit")}
             </Button>
           </div>
