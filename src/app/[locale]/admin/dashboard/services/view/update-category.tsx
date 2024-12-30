@@ -60,7 +60,7 @@ export function DialogUpadte({
       price:
         selectedCategory && selectedCategory.price !== undefined
           ? (selectedCategory.price * 100).toString()
-          : "0",
+          : "60",
       description: selectedCategory?.description,
       workingMinutes: selectedCategory?.workingMinutes.toString(),
     },

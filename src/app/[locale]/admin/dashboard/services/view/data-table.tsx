@@ -13,17 +13,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown, EditIcon, TrashIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -36,6 +33,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DialogUpadte } from "./update-category";
+import { DialogDelete } from "./delete-category";
 
 export type Category = {
   id: number;
@@ -46,31 +44,32 @@ export type Category = {
 };
 
 export const createColumns = (
-  handleEdit: (category: Category) => void
+  handleEdit: (category: Category) => void,
+  handleDelete: (category: Category) => void
 ): ColumnDef<Category>[] => {
   return [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+    // {
+    //   id: "select",
+    //   header: ({ table }) => (
+    //     <Checkbox
+    //       checked={
+    //         table.getIsAllPageRowsSelected() ||
+    //         (table.getIsSomePageRowsSelected() && "indeterminate")
+    //       }
+    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+    //       aria-label="Select all"
+    //     />
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Checkbox
+    //       checked={row.getIsSelected()}
+    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+    //       aria-label="Select row"
+    //     />
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
     {
       accessorKey: "name",
       header: "Name",
@@ -132,29 +131,24 @@ export const createColumns = (
         const category = row.original;
 
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() =>
-                  navigator.clipboard.writeText(category.id.toString())
-                }
-              >
-                Copy ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleEdit(category)}>
-                Editar
-              </DropdownMenuItem>
-              <DropdownMenuItem>Excluir</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleEdit(category)}
+              aria-label="Edit"
+            >
+              <EditIcon />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleDelete(category)}
+              aria-label="Delete"
+            >
+              <TrashIcon />
+            </Button>
+          </div>
         );
       },
     },
@@ -170,6 +164,7 @@ export function DataTable({ data }: { data: Category[] }) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [showUpdate, setShowUpdate] = React.useState(false);
+  const [showDelete, setShowDelete] = React.useState(false);
   const [selectedCategory, setSelectedCategory] =
     React.useState<Category | null>(null);
 
@@ -178,7 +173,12 @@ export function DataTable({ data }: { data: Category[] }) {
     setShowUpdate(true);
   };
 
-  const columns = createColumns(handleEdit);
+  const handleDelete = (category: Category) => {
+    setSelectedCategory(category);
+    setShowDelete(true);
+  };
+
+  const columns = createColumns(handleEdit, handleDelete);
 
   const table = useReactTable({
     data,
@@ -288,10 +288,10 @@ export function DataTable({ data }: { data: Category[] }) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+        {/* <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+        </div> */}
         <div className="space-x-2">
           <Button
             variant="outline"
@@ -315,6 +315,14 @@ export function DataTable({ data }: { data: Category[] }) {
         <DialogUpadte
           showUpdate={showUpdate}
           setShowUpdate={setShowUpdate}
+          selectedCategory={selectedCategory}
+        />
+      )}
+
+      {showDelete && (
+        <DialogDelete
+          showDelete={showDelete}
+          setShowDelete={setShowDelete}
           selectedCategory={selectedCategory}
         />
       )}

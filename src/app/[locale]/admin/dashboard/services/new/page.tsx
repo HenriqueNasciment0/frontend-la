@@ -40,7 +40,7 @@ export default function NewCategory() {
       name: "",
       price: "",
       description: "",
-      workingMinutes: 0,
+      workingMinutes: 60,
     },
   });
 
