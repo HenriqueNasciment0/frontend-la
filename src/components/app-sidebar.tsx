@@ -3,15 +3,14 @@
 import * as React from "react";
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
   Frame,
-  GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
+  GalleryVerticalEnd,
+  Camera,
+  MapPin,
+  Sliders,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -26,7 +25,6 @@ import {
 } from "@/components/ui/sidebar";
 import { TeamSwitcher } from "@/components/team-switcher";
 
-// This is sample data.
 const data = {
   user: {
     name: "Lua Abreu",
@@ -52,9 +50,9 @@ const data = {
   ],
   navMain: [
     {
-      title: "Trabalhos",
+      title: "works",
       url: "#",
-      icon: SquareTerminal,
+      icon: GalleryVerticalEnd,
       isActive: true,
       items: [
         {
@@ -72,9 +70,9 @@ const data = {
       ],
     },
     {
-      title: "Serviços",
+      title: "services",
       url: "#",
-      icon: Bot,
+      icon: Camera,
       items: [
         {
           title: "Novo",
@@ -91,9 +89,9 @@ const data = {
       ],
     },
     {
-      title: "Locations",
+      title: "locations",
       url: "#",
-      icon: BookOpen,
+      icon: MapPin,
       items: [
         {
           title: "Visualizar",
@@ -114,9 +112,9 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "settings",
       url: "#",
-      icon: Settings2,
+      icon: Sliders,
       items: [
         {
           title: "General",

@@ -44,5 +44,20 @@
     "and": "and",
     "minutes": "minutes",
     "submit": "Create"
+  },
+  "Breadcrumb": {
+    "dashboard": "DashBoard",
+    "works": "Works",
+    "new": "New",
+    "view": "View",
+    "services": "Services",
+    "locations": "Locations",
+    "settings": "Settings"
+  },
+  "Sections": {
+    "works": "Works",
+    "services": "Services",
+    "locations": "Locations",
+    "settings": "Settings"
   }
 }

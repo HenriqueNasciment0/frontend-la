@@ -11,9 +11,9 @@ const CurrencyInput: React.FC<{
 
   useEffect(() => {
     if (value) {
-      const numericValue = value.replace(/\D/g, ""); // Remove caracteres não numéricos
+      const numericValue = value.replace(/\D/g, "");
       if (numericValue) {
-        const numberValue = parseFloat(numericValue) / 100; // Converte para reais
+        const numberValue = parseFloat(numericValue) / 100;
         const formatted = numberValue.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
@@ -30,7 +30,7 @@ const CurrencyInput: React.FC<{
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    const numericValue = inputValue.replace(/\D/g, ""); // Remove tudo que não for dígito
+    const numericValue = inputValue.replace(/\D/g, "");
 
     if (numericValue === "") {
       setFormattedValue("");
@@ -40,7 +40,7 @@ const CurrencyInput: React.FC<{
       return;
     }
 
-    const numberValue = parseFloat(numericValue) / 100; // Divide por 100 para ajustar os centavos
+    const numberValue = parseFloat(numericValue) / 100;
     const formatted = numberValue.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",

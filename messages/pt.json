@@ -44,5 +44,20 @@
     "and": "e",
     "minutes": "minutos",
     "submit": "Criar"
+  },
+  "Breadcrumb": {
+    "dashboard": "Painel",
+    "works": "Trabalhos",
+    "new": "Novo",
+    "view": "Visualizar",
+    "services": "Serviços",
+    "locations": "Localizações",
+    "settings": "Configurações"
+  },
+  "Sections": {
+    "works": "Trabalhos",
+    "services": "Serviços",
+    "locations": "Localizações",
+    "settings": "Configurações"
   }
 }
