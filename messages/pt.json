@@ -21,12 +21,43 @@
     "admin": "Administração"
   },
   "NewWork": {
-    "title": "New Work",
+    "title": "Novo Trabalho",
     "description": "Descrição",
     "price": "Preço",
     "category": "Categoria",
     "payment": "Pagamento",
     "image": "Imagem",
-    "submit": "Enviar"
+    "submit": "Criar"
+  },
+  "NewCategory": {
+    "title": "Nova Categoria",
+    "name": "Nome",
+    "nameLabel": "Ex: Ensaio em Estúdio",
+    "price": "Preço",
+    "priceLabel": "RS 0,00",
+    "description": "Descrição",
+    "descriptionLabel": "Ex: Ensaio externo com edição de imagens",
+    "workingMinutes": "Duração",
+    "workingMinutesLabel": "1 hora",
+    "hour": "hora",
+    "hours": "horas",
+    "and": "e",
+    "minutes": "minutos",
+    "submit": "Criar"
+  },
+  "Breadcrumb": {
+    "dashboard": "Painel",
+    "works": "Trabalhos",
+    "new": "Novo",
+    "view": "Visualizar",
+    "services": "Serviços",
+    "locations": "Localizações",
+    "settings": "Configurações"
+  },
+  "Sections": {
+    "works": "Trabalhos",
+    "services": "Serviços",
+    "locations": "Localizações",
+    "settings": "Configurações"
   }
 }
