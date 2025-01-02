@@ -43,7 +43,11 @@
     "hours": "hours",
     "and": "and",
     "minutes": "minutes",
-    "submit": "Create"
+    "submit": "Create",
+    "toastSuccess": "Category created successfully",
+    "toastError": "Error creating category",
+    "toastSuccesDescription": "Click to see the list of categories",
+    "toastView": "View"
   },
   "Breadcrumb": {
     "dashboard": "DashBoard",

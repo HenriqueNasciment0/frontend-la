@@ -43,7 +43,11 @@
     "hours": "horas",
     "and": "e",
     "minutes": "minutos",
-    "submit": "Criar"
+    "submit": "Criar",
+    "toastSuccess": "Categoria criada com sucesso",
+    "toastError": "Erro ao criar categoria",
+    "toastSuccesDescription": "Clique para ver a lista de serviços",
+    "toastView": "Visualizar"
   },
   "Breadcrumb": {
     "dashboard": "Painel",
