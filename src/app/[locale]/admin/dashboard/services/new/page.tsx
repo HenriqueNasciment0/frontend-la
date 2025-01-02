@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/select";
 import { CreateCategory } from "@/api/endpoints/category";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(4).max(100),
@@ -44,6 +46,8 @@ export default function NewCategory() {
     },
   });
 
+  const router = useRouter();
+
   function formatCurrency(value: string): string {
     const numericValue = parseFloat(value.replace(/\D/g, "")) / 100;
     return numericValue.toLocaleString("pt-BR", {
@@ -52,13 +56,28 @@ export default function NewCategory() {
     });
   }
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const numericPrice = parseFloat(
       values.price.replace(/[R$\s.]/g, "").replace(",", ".")
     );
 
-    CreateCategory({ ...values, price: numericPrice });
-    form.reset();
+    try {
+      await CreateCategory({ ...values, price: numericPrice });
+      toast.success(t("toastSuccess"), {
+        // description: t("toastSuccesDescription"),
+        action: {
+          label: t("toastView"),
+
+          onClick: () => {
+            router.push("/pt/admin/dashboard/services/view");
+          },
+        },
+      });
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      toast.error(t("toastError"));
+    }
   }
 
   return (
