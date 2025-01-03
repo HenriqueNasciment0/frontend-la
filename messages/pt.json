@@ -10,7 +10,11 @@
     "valid-password": "A senha deve ter pelo menos 6 caracteres",
     "invalid-credentials": "Email ou senha incorretos",
     "error": "Ocorreu um erro",
-    "loading": "Carregando..."
+    "loading": "Carregando...",
+    "developer": "Desenvolvido por ",
+    "terms": "Termos de Uso",
+    "privacy": "Política de Privacidade",
+    "contact": "Contato"
   },
   "SwitcherLang": {
     "portuguese": "Português",
@@ -21,7 +25,9 @@
     "admin": "Administração"
   },
   "NewWork": {
-    "title": "Novo Trabalho",
+    "newWork": "Novo trabalho",
+    "addWork": "Adicionar informações do novo trabalho",
+    "title": "Título",
     "description": "Descrição",
     "price": "Preço",
     "category": "Categoria",

@@ -9,13 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { useTranslations } from "next-intl";
 
@@ -27,7 +21,7 @@ import { AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Login } from "@/api/endpoints/auth";
 import { AdminHeader } from "@/components/ui/AdminHeader";
-// import { Footer } from "@/components/ui/Footer";
+import { Footer } from "@/components/ui/Footer";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const formSchema = z.object({
@@ -88,8 +82,8 @@ export default function LoginCard() {
             <AlertDescription>{t("invalid-credentials")}</AlertDescription>
           </Alert>
         )}
-        <Card className="w-[400px] p-6">
-          <CardHeader>
+        <Card className="md:w-[400px] p-6">
+          <CardHeader className="mb-4">
             <CardTitle className="text-center text-3xl font-bold">
               {t("title")}
             </CardTitle>
@@ -101,80 +95,80 @@ export default function LoginCard() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-10"
+                className="space-y-12"
               >
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field, fieldState }) => (
-                    <FormItem>
-                      <FormLabel>{t("email")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder={t("email")}
-                          {...field}
-                          className={`${
-                            fieldState.error ? "border-red-500" : ""
-                          }`}
-                        />
-                      </FormControl>
-                      {fieldState.error && (
-                        <p className="text-sm text-red-500 mt-1">
-                          {fieldState.error.message}
-                        </p>
-                      )}
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field, fieldState }) => (
-                    <FormItem>
-                      <FormLabel>{t("password")}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                <div className="space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field, fieldState }) => (
+                      <FormItem>
+                        <FormControl>
                           <Input
-                            type={showPassword ? "text" : "password"}
-                            placeholder={t("password")}
+                            type="email"
+                            placeholder={t("email")}
                             {...field}
-                            className={`pr-10 ${
+                            className={`${
                               fieldState.error ? "border-red-500" : ""
                             }`}
                           />
-                          <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none"
-                          >
-                            {showPassword ? (
-                              <EyeOff className="w-5 h-5" />
-                            ) : (
-                              <Eye className="w-5 h-5" />
-                            )}
-                          </button>
-                        </div>
-                      </FormControl>
-                      {fieldState.error && (
-                        <p className="text-sm text-red-500 mt-1">
-                          {fieldState.error.message}
-                        </p>
-                      )}
-                    </FormItem>
-                  )}
-                />
+                        </FormControl>
+                        {fieldState.error && (
+                          <p className="text-sm text-red-500 mt-1">
+                            {fieldState.error.message}
+                          </p>
+                        )}
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field, fieldState }) => (
+                      <FormItem>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              placeholder={t("password")}
+                              {...field}
+                              className={`pr-10 ${
+                                fieldState.error ? "border-red-500" : ""
+                              }`}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none"
+                            >
+                              {showPassword ? (
+                                <EyeOff className="w-5 h-5" />
+                              ) : (
+                                <Eye className="w-5 h-5" />
+                              )}
+                            </button>
+                          </div>
+                        </FormControl>
+                        {fieldState.error && (
+                          <p className="text-sm text-red-500 mt-1">
+                            {fieldState.error.message}
+                          </p>
+                        )}
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                 <Button type="submit" className="w-full">
-                  {loading ? t("loading") : t("login")}
+                  <strong>{loading ? t("loading") : t("login")}</strong>
                 </Button>
               </form>
             </Form>
           </CardContent>
         </Card>
       </div>
-      {/* <Footer /> */}
+      <Footer t={t} />
     </div>
   );
 }

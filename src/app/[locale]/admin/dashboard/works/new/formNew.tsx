@@ -23,10 +23,17 @@ import {
 } from "@/components/ui/form";
 import { useTranslations } from "next-intl";
 // import { useRouter } from "next/navigation";
-import ImageUploader from "@/components/ImageUploader";
+// import ImageUploader from "@/components/ImageUploader";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CreateJob } from "@/api/endpoints/job";
+import { useEffect, useState } from "react";
+import { GetCategories } from "@/api/endpoints/category";
+
+interface Category {
+  id: number;
+  name: string;
+}
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -38,9 +45,9 @@ const formSchema = z.object({
   // link: z.string().min(1, {
   //   message: "Link must be at least 1 characters.",
   // }),
-  images: z.array(z.instanceof(File)).min(1, {
-    message: "At least one image must be uploaded.",
-  }),
+  // images: z.array(z.instanceof(File)).min(1, {
+  //   message: "At least one image must be uploaded.",
+  // }),
   category: z.array(z.number()).min(1, {
     message: "At least one category must be selected.",
   }),
@@ -48,6 +55,7 @@ const formSchema = z.object({
 });
 
 export default function FormNew() {
+  const [categories, setCategories] = useState<Category[]>([]);
   const t = useTranslations("NewWork");
   // const router = useRouter();
 
@@ -57,7 +65,7 @@ export default function FormNew() {
       title: "",
       description: "",
       // link: "",
-      images: [],
+      // images: [],
       category: [],
       payment: "",
     },
@@ -90,28 +98,13 @@ export default function FormNew() {
     // router.push("/pt/admin/dashboard/works/all");
   };
 
-  const items = [
-    {
-      id: 1,
-      label: "Ensaio Fotográfico",
-    },
-    {
-      id: 2,
-      label: "Casamento",
-    },
-    {
-      id: 3,
-      label: "Ensaio Trash the Drass",
-    },
-    {
-      id: 4,
-      label: "Ensaio Corporativo",
-    },
-    {
-      id: 5,
-      label: "Ensaio Família",
-    },
-  ] as const;
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await GetCategories();
+      setCategories(categories);
+    };
+    fetchCategories();
+  }, []);
 
   const itemsPayment = [
     {
@@ -144,8 +137,8 @@ export default function FormNew() {
   return (
     <Card className="w-11/12 mb-4">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
-        <CardDescription>{t("description")}</CardDescription>
+        <CardTitle>{t("newWork")}</CardTitle>
+        <CardDescription>{t("addWork")}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -176,7 +169,7 @@ export default function FormNew() {
             />
             <div className="flex flex-col space-y-4">
               <FormLabel>{t("category")}</FormLabel>
-              {items.map((item) => (
+              {categories.map((item) => (
                 <FormField
                   key={item.id}
                   control={form.control}
@@ -202,7 +195,7 @@ export default function FormNew() {
                           />
                         </FormControl>
                         <FormLabel className="font-normal">
-                          {item.label}
+                          {item.name}
                         </FormLabel>
                       </FormItem>
                     );
@@ -245,17 +238,17 @@ export default function FormNew() {
               />
             </div>
 
-            <div className="flex justify-center items-center ">
+            {/* <div className="flex justify-center items-center ">
               <ImageUploader
                 onChange={(files) => form.setValue("images", files)}
               />
-            </div>
+            </div> */}
 
-            {form.formState.errors.images && (
+            {/* {form.formState.errors.images && (
               <p className="text-red-500">
                 {form.formState.errors.images.message}
               </p>
-            )}
+            )} */}
 
             <Button type="submit">{t("submit")}</Button>
           </form>

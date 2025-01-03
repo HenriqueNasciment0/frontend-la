@@ -5,14 +5,14 @@ import { ModeToggle } from "./mode-toggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 
 export function AdminHeader() {
   const { theme } = useTheme();
-  const t = useTranslations("Header");
+  // const t = useTranslations("Header");
 
   return (
-    <header className="flex items-center justify-between px-4 py-2 border-b border-gray-100 dark:border-gray-700">
+    <header className="flex items-center justify-between px-6 py-4">
       <div className="flex items-center space-x-3 text-gray-800 dark:text-white">
         <div className="h-full">
           <Image
@@ -25,7 +25,7 @@ export function AdminHeader() {
             }`}
           />
         </div>
-        <span className="text-lg font-bold">{t("admin")}</span>
+        {/* <span className="text-sm font-bold">{t("admin")}</span> */}
       </div>
 
       <div className="flex items-center space-x-4">
