@@ -10,7 +10,11 @@
     "valid-password": "Password must be at least 6 characters long",
     "invalid-credentials": "Invalid email or password",
     "error": "An error has occurred",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "developer": "Developer by ",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "contact": "Contact"
   },
   "SwitcherLang": {
     "portuguese": "Portuguese",
@@ -21,7 +25,9 @@
     "admin": "Administration"
   },
   "NewWork": {
-    "title": "New Work",
+    "newWork": "New Job",
+    "addWork": "Add new job information",
+    "title": "Title",
     "description": "Description",
     "price": "Price",
     "category": "Category",
@@ -30,7 +36,7 @@
     "submit": "Submit"
   },
   "NewCategory": {
-    "title": "New Category",
+    "title": "Titlle",
     "name": "Name",
     "nameLabel": "Ex: Studio Shoot",
     "price": "Price",

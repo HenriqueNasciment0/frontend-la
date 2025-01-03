@@ -10,7 +10,11 @@
     "valid-password": "La contraseña debe tener al menos 6 caracteres",
     "invalid-credentials": "Correo electrónico o contraseña incorrectos",
     "error": "Ocurrió un error",
-    "loading": "Cargando..."
+    "loading": "Cargando...",
+    "developer": "Desarrollado por ",
+    "terms": "Términos de Uso",
+    "privacy": "Política de Privacidad",
+    "contact": "Contacto"
   },
   "SwitcherLang": {
     "portuguese": "Portugués",
@@ -21,7 +25,9 @@
     "admin": "Administración"
   },
   "NewWork": {
-    "title": "New Work",
+    "newWork": "Nuevo trabajo",
+    "addWork": "Agregar nueva información de trabajo",
+    "title": "Título",
     "description": "Descripción",
     "price": "Precio",
     "category": "Categoría",
